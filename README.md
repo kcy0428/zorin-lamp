@@ -112,12 +112,45 @@ flowchart TD
 
 ## 에러 로그
 
-> 빌드 중 발견된 에러와 수정 내용을 기록합니다.
+### 에러 1 - sudo 비밀번호 입력 불가
+- **발생 위치**: deploy.sh 실행 시
+- **에러 내용**: `sudo: a terminal is required to read the password`
+- **원인**: Claude Code 환경에서 sudo 실행 시 interactive terminal이 없어 비밀번호 입력 불가
+- **해결**: `sudo -S` 옵션으로 stdin을 통해 비밀번호 전달하는 방식으로 변경
 
-| 번호 | 파일 | 에러 내용 | 해결 방법 |
-|------|------|-----------|-----------|
-| 1 | checkout.php | bind_param() 중복 호출 (isss/isssd) | 첫 번째 잘못된 bind_param 제거 |
-| 2 | admin/products.php | bind_param() 중복 호출 (issdisd/issdisi) | 잘못된 타입문자열 bind_param 제거 |
-| 3 | admin/products.php | prepare()->bind_param() 체인 후 중복 prepare | 불필요한 체인 코드 제거 |
-| 4 | setup.php | MySQL root auth_socket 방식으로 PHP 직접 연결 불가 (500 에러) | sudo mysql로 setup_db.sql 직접 실행 방식으로 변경 |
-| 5 | setup_db.sql / db.php | MySQL 비밀번호 정책(MEDIUM) - 특수문자/대문자/숫자 필요 | 비밀번호 shop_pass123 → Shop@Pass1 로 변경 |
+---
+
+### 에러 2 - PHP bind_param() 중복 호출
+- **발생 위치**: `checkout.php` 40~41번째 줄
+- **에러 내용**: 동일한 `$stmt`에 `bind_param()` 두 번 호출 (타입 문자열 `"isss"` / `"isssd"`)
+- **원인**: 파라미터 타입 수정 과정에서 이전 코드를 미삭제
+- **해결**: 잘못된 첫 번째 `bind_param("isss", ...)` 제거
+
+---
+
+### 에러 3 - PHP bind_param() 중복 호출 및 불필요한 prepare()
+- **발생 위치**: `admin/products.php` 41~42번째 줄, 47번째 줄
+- **에러 내용 1**: UPDATE 쿼리에서 `bind_param()` 두 번 호출 (`"issdisd"` / `"issdisi"`)
+- **에러 내용 2**: `prepare()->bind_param()` 체인 후 동일 쿼리 `prepare()` 재호출
+- **원인**: 코드 작성 중 타입 문자열 오기입 후 수정 과정에서 중복 발생
+- **해결**: 잘못된 타입 문자열의 `bind_param` 및 중복 `prepare()` 제거
+
+---
+
+### 에러 4 - MySQL root 계정 PHP 직접 연결 불가 (HTTP 500)
+- **발생 위치**: `setup.php` 접속 시
+- **에러 내용**: `PHP Fatal error: Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost'`
+- **원인**: Ubuntu/Zorin OS의 MySQL 8.0은 root 계정이 `auth_socket` 플러그인 방식으로 인증 → 비밀번호 기반 PHP 연결 불가
+- **해결**: PHP setup.php 대신 `sudo mysql < setup_db.sql` 명령으로 터미널에서 직접 DB 설치
+
+---
+
+### 에러 5 - MySQL 비밀번호 정책 불충족
+- **발생 위치**: `setup_db.sql` 실행 시
+- **에러 내용**: `ERROR 1819 (HY000): Your password does not satisfy the current policy requirements`
+- **원인**: MySQL `validate_password.policy = MEDIUM` 설정으로 대문자, 숫자, 특수문자 포함 필요
+  - `validate_password.length` = 8
+  - `validate_password.mixed_case_count` = 1
+  - `validate_password.number_count` = 1
+  - `validate_password.special_char_count` = 1
+- **해결**: DB 사용자 비밀번호 `shop_pass123` → `Shop@Pass1` 로 변경 (db.php, setup_db.sql 동시 수정)
