@@ -154,3 +154,9 @@ flowchart TD
   - `validate_password.number_count` = 1
   - `validate_password.special_char_count` = 1
 - **해결**: DB 사용자 비밀번호 `shop_pass123` → `Shop@Pass1` 로 변경 (db.php, setup_db.sql 동시 수정)
+
+### 실행 영상
+```bash
+https://github.com/user-attachments/assets/05cdaa4e-13fa-4b56-a28e-557f753bcf01
+```
+
