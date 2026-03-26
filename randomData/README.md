@@ -157,3 +157,4 @@ CREATE TABLE sensor_readings (
     INDEX idx_recorded_at (recorded_at)
 );
 ```
+
