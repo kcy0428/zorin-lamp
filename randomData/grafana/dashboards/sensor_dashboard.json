@@ -1,7 +1,9 @@
 {
   "__inputs": [],
   "__requires": [],
-  "annotations": { "list": [] },
+  "annotations": {
+    "list": []
+  },
   "description": "LAMP 센서 실시간 모니터링 대시보드",
   "editable": true,
   "fiscalYearStartMonth": 0,
@@ -10,37 +12,65 @@
   "links": [],
   "panels": [
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "blue",  "value": null },
-              { "color": "green", "value": 15   },
-              { "color": "red",   "value": 35   }
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 15
+              },
+              {
+                "color": "red",
+                "value": 35
+              }
             ]
           },
           "unit": "celsius"
         }
       },
-      "gridPos": { "h": 5, "w": 3, "x": 0, "y": 0 },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
       "id": 1,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
         "textMode": "auto"
       },
       "title": "온도",
       "type": "stat",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "time_series",
           "rawSql": "SELECT recorded_at AS time, temperature AS '온도(°C)' FROM sensor_readings WHERE $__timeFilter(recorded_at) ORDER BY recorded_at",
           "refId": "A"
@@ -48,36 +78,64 @@
       ]
     },
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "orange", "value": null },
-              { "color": "green",  "value": 30   },
-              { "color": "blue",   "value": 80   }
+              {
+                "color": "orange",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 30
+              },
+              {
+                "color": "blue",
+                "value": 80
+              }
             ]
           },
           "unit": "percent"
         }
       },
-      "gridPos": { "h": 5, "w": 3, "x": 3, "y": 0 },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
       "id": 2,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
         "textMode": "auto"
       },
       "title": "습도",
       "type": "stat",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "time_series",
           "rawSql": "SELECT recorded_at AS time, humidity AS '습도(%)' FROM sensor_readings WHERE $__timeFilter(recorded_at) ORDER BY recorded_at",
           "refId": "A"
@@ -85,35 +143,60 @@
       ]
     },
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "red",   "value": 1040 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1040
+              }
             ]
           },
           "unit": "pressurehpa"
         }
       },
-      "gridPos": { "h": 5, "w": 3, "x": 6, "y": 0 },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
       "id": 3,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
         "textMode": "auto"
       },
       "title": "기압",
       "type": "stat",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "time_series",
           "rawSql": "SELECT recorded_at AS time, pressure AS '기압(hPa)' FROM sensor_readings WHERE $__timeFilter(recorded_at) ORDER BY recorded_at",
           "refId": "A"
@@ -121,37 +204,65 @@
       ]
     },
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "thresholds" },
+          "color": {
+            "mode": "thresholds"
+          },
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "dark-gray", "value": null },
-              { "color": "yellow",    "value": 200  },
-              { "color": "white",     "value": 1000 }
+              {
+                "color": "dark-gray",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 200
+              },
+              {
+                "color": "white",
+                "value": 1000
+              }
             ]
           },
           "unit": "none",
           "displayName": "lux"
         }
       },
-      "gridPos": { "h": 5, "w": 3, "x": 9, "y": 0 },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 9,
+        "y": 0
+      },
       "id": 4,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
-        "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false },
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
         "textMode": "auto"
       },
       "title": "조도",
       "type": "stat",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "time_series",
           "rawSql": "SELECT recorded_at AS time, light_level AS '조도(lux)' FROM sensor_readings WHERE $__timeFilter(recorded_at) ORDER BY recorded_at",
           "refId": "A"
@@ -159,10 +270,15 @@
       ]
     },
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": { "mode": "palette-classic" },
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
@@ -173,7 +289,11 @@
             "drawStyle": "line",
             "fillOpacity": 10,
             "gradientMode": "none",
-            "hideFrom": { "legend": false, "tooltip": false, "viz": false },
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "lineInterpolation": "linear",
             "lineWidth": 2,
             "pointSize": 3,
@@ -181,38 +301,130 @@
             "spanNulls": false
           },
           "mappings": [],
-          "thresholds": { "mode": "absolute", "steps": [] }
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
         },
         "overrides": [
           {
-            "matcher": { "id": "byName", "options": "온도(°C)" },
-            "properties": [ { "id": "unit", "value": "celsius" }, { "id": "color", "value": { "fixedColor": "#ff4444", "mode": "fixed" } } ]
+            "matcher": {
+              "id": "byName",
+              "options": "온도(°C)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "celsius"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ff4444",
+                  "mode": "fixed"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "습도(%)" },
-            "properties": [ { "id": "unit", "value": "percent" }, { "id": "color", "value": { "fixedColor": "#4488ff", "mode": "fixed" } } ]
+            "matcher": {
+              "id": "byName",
+              "options": "습도(%)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#4488ff",
+                  "mode": "fixed"
+                }
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "기압(hPa)" },
-            "properties": [ { "id": "unit", "value": "pressurehpa" }, { "id": "color", "value": { "fixedColor": "#44cc44", "mode": "fixed" } }, { "id": "custom.axisPlacement", "value": "right" } ]
+            "matcher": {
+              "id": "byName",
+              "options": "기압(hPa)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "pressurehpa"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#44cc44",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
           },
           {
-            "matcher": { "id": "byName", "options": "조도(lux)" },
-            "properties": [ { "id": "unit", "value": "none" }, { "id": "color", "value": { "fixedColor": "#ffaa00", "mode": "fixed" } }, { "id": "custom.axisPlacement", "value": "right" } ]
+            "matcher": {
+              "id": "byName",
+              "options": "조도(lux)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ffaa00",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
           }
         ]
       },
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 5 },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
       "id": 5,
       "options": {
-        "legend": { "calcs": ["min", "max", "mean", "last"], "displayMode": "table", "placement": "bottom", "showLegend": true },
-        "tooltip": { "mode": "multi", "sort": "none" }
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
       "title": "센서 시계열 (온도 / 습도 / 기압 / 조도)",
       "type": "timeseries",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "time_series",
           "rawSql": "SELECT recorded_at AS time, temperature AS '온도(°C)', humidity AS '습도(%)', pressure AS '기압(hPa)', light_level AS '조도(lux)' FROM sensor_readings WHERE $__timeFilter(recorded_at) ORDER BY recorded_at",
           "refId": "A"
@@ -220,25 +432,131 @@
       ]
     },
     {
-      "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+      "datasource": {
+        "type": "mysql",
+        "uid": "P4629FCFB878D1D7B"
+      },
       "fieldConfig": {
-        "defaults": { "custom": { "align": "auto", "cellOptions": { "type": "color-background" }, "inspect": false }, "mappings": [], "thresholds": { "mode": "absolute", "steps": [] } },
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        },
         "overrides": [
-          { "matcher": { "id": "byName", "options": "recorded_at" }, "properties": [ { "id": "displayName", "value": "기록 시각" }, { "id": "custom.width", "value": 200 } ] },
-          { "matcher": { "id": "byName", "options": "temperature" }, "properties": [ { "id": "displayName", "value": "온도(°C)" }, { "id": "unit", "value": "celsius" } ] },
-          { "matcher": { "id": "byName", "options": "humidity" },    "properties": [ { "id": "displayName", "value": "습도(%)" },   { "id": "unit", "value": "percent" } ] },
-          { "matcher": { "id": "byName", "options": "pressure" },   "properties": [ { "id": "displayName", "value": "기압(hPa)" }, { "id": "unit", "value": "pressurehpa" } ] },
-          { "matcher": { "id": "byName", "options": "light_level" },"properties": [ { "id": "displayName", "value": "조도(lux)" } ] }
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "recorded_at"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "기록 시각"
+              },
+              {
+                "id": "custom.width",
+                "value": 200
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "temperature"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "온도(°C)"
+              },
+              {
+                "id": "unit",
+                "value": "celsius"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "humidity"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "습도(%)"
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pressure"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "기압(hPa)"
+              },
+              {
+                "id": "unit",
+                "value": "pressurehpa"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "light_level"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "조도(lux)"
+              }
+            ]
+          }
         ]
       },
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 15 },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
       "id": 6,
-      "options": { "footer": { "enablePagination": true }, "showHeader": true, "sortBy": [{ "desc": true, "displayName": "기록 시각" }] },
+      "options": {
+        "footer": {
+          "enablePagination": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "기록 시각"
+          }
+        ]
+      },
       "title": "최근 센서 데이터 (Raw)",
       "type": "table",
       "targets": [
         {
-          "datasource": { "type": "mysql", "uid": "${DS_SENSOR_DB}" },
+          "datasource": {
+            "type": "mysql",
+            "uid": "P4629FCFB878D1D7B"
+          },
           "format": "table",
           "rawSql": "SELECT recorded_at, temperature, humidity, pressure, light_level FROM sensor_readings ORDER BY recorded_at DESC LIMIT 100",
           "refId": "A"
@@ -248,24 +566,18 @@
   ],
   "refresh": "5s",
   "schemaVersion": 38,
-  "tags": ["sensor", "iot", "lamp"],
+  "tags": [
+    "sensor",
+    "iot",
+    "lamp"
+  ],
   "templating": {
-    "list": [
-      {
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "DS_SENSOR_DB",
-        "multi": false,
-        "name": "DS_SENSOR_DB",
-        "options": [],
-        "query": "mysql",
-        "refresh": 1,
-        "type": "datasource"
-      }
-    ]
+    "list": []
   },
-  "time": { "from": "now-5m", "to": "now" },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
   "timepicker": {},
   "timezone": "Asia/Seoul",
   "title": "센서 실시간 모니터링",
