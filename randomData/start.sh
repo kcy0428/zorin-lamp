@@ -50,7 +50,7 @@ echo "    Grafana            : http://localhost:3000  (admin / admin)"
 echo "============================================================"
 echo ""
 
-python3 "$PROJ_DIR/injector.py"
+uv run "$PROJ_DIR/injector.py"
 
 # 정리
 info "인젝터 종료됨. Node-RED 중지 중..."

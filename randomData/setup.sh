@@ -28,15 +28,15 @@ else
     warn "      sudo mysql < $PROJ_DIR/setup_db.sql"
 fi
 
-# ── 2. Python pip 부트스트랩 & pymysql 설치 ──────────────────
-info "2/5 Python 의존성 설치 중..."
-if ! python3 -m pip --version &>/dev/null; then
-    info "    pip 부트스트랩 중..."
-    python3 -m ensurepip --upgrade 2>/dev/null || \
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3
+# ── 2. uv 가상환경 & 의존성 설치 ────────────────────────────
+info "2/5 Python 가상환경 설정 중 (uv)..."
+if ! command -v uv &>/dev/null; then
+    error "uv 미설치. 설치 후 재실행: curl -LsSf https://astral.sh/uv/install.sh | sh"
+    exit 1
 fi
-python3 -m pip install -q pymysql
-info "    pymysql 설치 완료"
+cd "$PROJ_DIR"
+uv sync
+info "    가상환경 및 pymysql 설치 완료 (.venv)"
 
 # ── 3. Node-RED 설치 ─────────────────────────────────────────
 info "3/5 Node-RED 설치 중..."
