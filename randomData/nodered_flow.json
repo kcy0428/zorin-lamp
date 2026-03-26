@@ -6,7 +6,7 @@
     "host": "127.0.0.1",
     "port": "3306",
     "db": "sensor_db",
-    "tz": "Asia/Seoul",
+    "tz": "+09:00",
     "charset": "utf8mb4",
     "ssl": false
   },
@@ -43,8 +43,13 @@
     "type": "inject",
     "name": "3초마다 조회",
     "props": [
-      { "p": "payload" },
-      { "p": "topic", "vt": "str" }
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
     ],
     "repeat": "3",
     "crontab": "",
@@ -55,7 +60,11 @@
     "payloadType": "date",
     "x": 130,
     "y": 160,
-    "wires": [["fn-set-query-001"]]
+    "wires": [
+      [
+        "fn-set-query-001"
+      ]
+    ]
   },
   {
     "id": "fn-set-query-001",
@@ -65,7 +74,11 @@
     "outputs": 1,
     "x": 330,
     "y": 160,
-    "wires": [["mysql-001"]]
+    "wires": [
+      [
+        "mysql-001"
+      ]
+    ]
   },
   {
     "id": "mysql-001",
@@ -74,7 +87,12 @@
     "mydb": "db-cfg-001",
     "x": 540,
     "y": 160,
-    "wires": [["fn-parse-gauges-001", "fn-parse-chart-001"]]
+    "wires": [
+      [
+        "fn-parse-gauges-001",
+        "fn-parse-chart-001"
+      ]
+    ]
   },
   {
     "id": "fn-parse-gauges-001",
@@ -85,10 +103,18 @@
     "x": 760,
     "y": 80,
     "wires": [
-      ["gauge-temp-001"],
-      ["gauge-hum-001"],
-      ["gauge-pres-001"],
-      ["gauge-light-001"]
+      [
+        "gauge-temp-001"
+      ],
+      [
+        "gauge-hum-001"
+      ],
+      [
+        "gauge-pres-001"
+      ],
+      [
+        "gauge-light-001"
+      ]
     ]
   },
   {
@@ -105,7 +131,11 @@
     "format": "{{value}}",
     "min": "-10",
     "max": "50",
-    "colors": ["#00b4ff", "#00ff00", "#ff0000"],
+    "colors": [
+      "#00b4ff",
+      "#00ff00",
+      "#ff0000"
+    ],
     "seg1": "15",
     "seg2": "35",
     "x": 990,
@@ -126,7 +156,11 @@
     "format": "{{value}}",
     "min": "0",
     "max": "100",
-    "colors": ["#ffcc00", "#00ff00", "#0000ff"],
+    "colors": [
+      "#ffcc00",
+      "#00ff00",
+      "#0000ff"
+    ],
     "seg1": "30",
     "seg2": "80",
     "x": 990,
@@ -147,7 +181,11 @@
     "format": "{{value}}",
     "min": "950",
     "max": "1060",
-    "colors": ["#00ff00", "#00ff00", "#ff0000"],
+    "colors": [
+      "#00ff00",
+      "#00ff00",
+      "#ff0000"
+    ],
     "seg1": "980",
     "seg2": "1040",
     "x": 990,
@@ -168,7 +206,11 @@
     "format": "{{value}}",
     "min": "0",
     "max": "2000",
-    "colors": ["#333333", "#ffcc00", "#ffffff"],
+    "colors": [
+      "#333333",
+      "#ffcc00",
+      "#ffffff"
+    ],
     "seg1": "200",
     "seg2": "1200",
     "x": 990,
@@ -179,14 +221,20 @@
     "id": "fn-parse-chart-001",
     "type": "function",
     "name": "차트 데이터 포맷",
-    "func": "if (!msg.payload || msg.payload.length === 0) return null;\nconst rows = msg.payload.slice().reverse();\nconst series = [\n  { label: '온도(°C)',   key: 'temperature' },\n  { label: '습도(%)',    key: 'humidity'    },\n  { label: '기압(hPa)', key: 'pressure'    }\n];\nconst out = [];\nfor (const s of series) {\n  out.push({\n    payload: rows.map(r => ({\n      x: new Date(r.recorded_at).getTime(),\n      y: parseFloat(r[s.key])\n    })),\n    topic: s.label,\n    series: [s.label]\n  });\n}\nreturn out;",
+    "func": "if (!msg.payload || msg.payload.length === 0) return null;\nconst r = msg.payload[0];\nnode.send([\n  {payload: parseFloat(r.temperature), topic: '온도(°C)'},\n  {payload: parseFloat(r.humidity),    topic: '습도(%)'},\n  {payload: parseFloat(r.pressure),    topic: '기압(hPa)'}\n]);",
     "outputs": 3,
     "x": 760,
     "y": 260,
     "wires": [
-      ["chart-sensor-001"],
-      ["chart-sensor-001"],
-      ["chart-sensor-001"]
+      [
+        "chart-sensor-001"
+      ],
+      [
+        "chart-sensor-001"
+      ],
+      [
+        "chart-sensor-001"
+      ]
     ]
   },
   {
@@ -211,7 +259,12 @@
     "removeOlderUnit": "1",
     "cutout": 0,
     "useOneColor": false,
-    "colors": ["#ff4444", "#4488ff", "#44cc44", "#ffaa00"],
+    "colors": [
+      "#ff4444",
+      "#4488ff",
+      "#44cc44",
+      "#ffaa00"
+    ],
     "x": 990,
     "y": 260,
     "wires": []

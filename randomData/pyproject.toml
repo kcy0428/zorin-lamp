@@ -4,5 +4,6 @@ version = "0.1.0"
 description = "LAMP 센서 실시간 모니터링 - 난수 데이터 생성 및 MySQL 주입"
 requires-python = ">=3.12"
 dependencies = [
+    "cryptography>=46.0.6",
     "pymysql>=1.1.2",
 ]
