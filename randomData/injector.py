@@ -78,11 +78,14 @@ def generate_sensor_data(tick: int) -> dict:
 
 
 def insert_reading(conn, data: dict):
+    # recorded_at을 Python에서 UTC로 명시 삽입 → MySQL timezone 무관
+    import datetime
+    data["recorded_at"] = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     sql = """
         INSERT INTO sensor_readings
-            (temperature, humidity, pressure, light_level)
+            (recorded_at, temperature, humidity, pressure, light_level)
         VALUES
-            (%(temperature)s, %(humidity)s, %(pressure)s, %(light_level)s)
+            (%(recorded_at)s, %(temperature)s, %(humidity)s, %(pressure)s, %(light_level)s)
     """
     with conn.cursor() as cur:
         cur.execute(sql, data)

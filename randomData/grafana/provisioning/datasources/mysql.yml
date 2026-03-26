@@ -13,5 +13,6 @@ datasources:
       maxIdleConns: 10
       connMaxLifetime: 14400
       timeInterval: "1s"
+      timezone: "+00:00"
     isDefault: true
-    editable: false
+    editable: true
